@@ -3,14 +3,10 @@ venv/
 env/
 .venv
 
-# Python cache
+# Python
 __pycache__/
 *.pyc
-
-# Environment variables (secrets!)
-.env
-
-# IDEs
-.vscode/
 .DS_Store
-Thumbs.db
+
+# Environment variables
+.env
