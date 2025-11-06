@@ -6,7 +6,7 @@ import os
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = "supersecretkey"
+    app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
     load_dotenv()
 
     def get_db_connection():
@@ -121,12 +121,10 @@ def create_app():
 
     return app
 
-# ✅ Create app instance for WSGI and direct run
+# Create app instance for WSGI
 app = create_app()
 
+# Only used if running directly (e.g., locally)
 if __name__ == "__main__":
-    app = create_app()
-    # Use PORT from environment (Render sets it), default to 5000 locally
     port = int(os.environ.get("PORT", 5000))
-    # Bind to 0.0.0.0 for Render
     app.run(host="0.0.0.0", port=port, debug=False)
