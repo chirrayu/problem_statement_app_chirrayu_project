@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Problem Statement</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f9f5; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c5e2c; margin-top: 0; }
+        .option { margin: 12px 0; padding: 12px; border-radius: 6px; display: flex; align-items: center; position: relative; }
+        .option input { margin-right: 12px; transform: scale(1.3); }
+        .count { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: #e9ecef; padding: 2px 8px; border-radius: 12px; font-size: 14px; color: #495057; }
+        .full { background: #f8d7da !important; color: #721c24 !important; pointer-events: none; opacity: 0.7; }
+        .full input { display: none; }
+        .full .label-text::after { content: " (Full)"; color: #dc3545; font-weight: bold; }
+        button { background: #28a745; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; margin-top: 15px; }
+        button:hover { background: #218838; }
+        .flash { background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin: 15px 0; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Select a Problem Statement *</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash">{{ messages[0] }}</div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="{{ url_for('form2') }}">
+                {% for opt in ["Option 1", "Option 2", "Option 3", "Option 4"] %}
+                    {% set count = counts.get(opt, 0) %}
+                    <div class="option {% if count >= 20 %}full{% endif %}">
+                        {% if count < 20 %}
+                            <input type="radio" id="{{ opt|replace(' ', '') }}" name="problem" value="{{ opt }}" required>
+                        {% endif %}
+                        <label for="{{ opt|replace(' ', '') }}" class="label-text">{{ opt }}</label>
+                        <div class="count">{{ count }}/20</div>
+                    </div>
+                {% endfor %}
+                <button type="submit" onclick="return confirm('Do you confirm your choice?');">Next →</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
