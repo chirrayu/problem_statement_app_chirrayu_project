@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS problem_statement;
+
+USE problem_statement;
+
+CREATE TABLE IF NOT EXISTS DETAILS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Phone VARCHAR(20),
+    problem_selected VARCHAR(50) NOT NULL,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
